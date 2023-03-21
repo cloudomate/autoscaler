@@ -48,6 +48,7 @@ import (
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/scaleway"
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/tencentcloud"
 	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/vultr"
+	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider/g42cloud"
 	"k8s.io/autoscaler/cluster-autoscaler/config"
 )
 
@@ -80,6 +81,7 @@ var AvailableCloudProviders = []string{
 	cloudprovider.CivoProviderName,
 	cloudprovider.ScalewayProviderName,
 	cloudprovider.RancherProviderName,
+	cloudprovider.G42cloudProviderName,
 }
 
 // DefaultCloudProvider is GCE.
@@ -141,6 +143,8 @@ func buildCloudProvider(opts config.AutoscalingOptions, do cloudprovider.NodeGro
 		return scaleway.BuildScaleway(opts, do, rl)
 	case cloudprovider.RancherProviderName:
 		return rancher.BuildRancher(opts, do, rl)
+	case cloudprovider.G42cloudProviderName:
+		return g42cloud.BuildG42Cloud(opts, do, rl)
 	}
 	return nil
 }

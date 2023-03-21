@@ -84,6 +84,8 @@ const (
 	CivoProviderName = "civo"
 	// RancherProviderName gets the provider name of rancher
 	RancherProviderName = "rancher"
+	// G42CloudProviderName 
+	G42cloudProviderName = "g42cloud"
 )
 
 // GpuConfig contains the label, type and the resource name for a GPU.

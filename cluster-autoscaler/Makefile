@@ -94,8 +94,8 @@ docker-builder:
 build-in-docker: build-in-docker-arch-$(GOARCH)
 
 build-in-docker-arch-%: clean-arch-% docker-builder
-	docker run ${RM_FLAG} -v `pwd`:/gopath/src/k8s.io/autoscaler/cluster-autoscaler/:Z autoscaling-builder:latest \
-		bash -c 'cd /gopath/src/k8s.io/autoscaler/cluster-autoscaler && BUILD_TAGS=${BUILD_TAGS} LDFLAGS="${LDFLAGS}" make build-arch-$*'
+	docker run ${RM_FLAG} -v `pwd`:${GOPATH}/src/k8s.io/autoscaler/cluster-autoscaler/:Z autoscaling-builder:latest \
+		bash -c 'cd ${GOPATH}/src/k8s.io/autoscaler/cluster-autoscaler && BUILD_TAGS=${BUILD_TAGS} LDFLAGS="${LDFLAGS}" make build-arch-$*'
 
 release: $(addprefix build-in-docker-arch-,$(ALL_ARCH)) execute-release
 	@echo "Full in-docker release ${TAG}${FOR_PROVIDER} completed"
